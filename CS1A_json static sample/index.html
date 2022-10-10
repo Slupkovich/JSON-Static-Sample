@@ -1,0 +1,334 @@
+<html>
+	<head>
+	<!--default stylesheet for jquery mobile -->
+		<link rel="stylesheet" href="css/jquery.mobile.css" />
+		<!--load local jquery framework-->
+		<script src="js/jquery.js"></script>
+		<!-- load local jquery mobile network-->
+		<script src="js/jquery.mobile.js"></script>
+		<!-- Load JSON -->
+		<script src="js/data.json"></script>
+		<!-- Check JSON -->
+		<script>
+			console.log(data);
+			console.log(data["ownerDetails"]["FName"]);
+			console.log(data["pets"][1]["Pet_Name"]);
+			
+			
+$( document ).ready(function() {
+	listPets();
+	updateOwnerDetails();
+});
+
+function listPets(){
+	var str = '';
+	for(var i=0;i<data["pets"].length;i++){
+		str += '<li><a href="#pet-details" onclick="updatePetDetails('+i+')">'+data["pets"][i]["Pet_Name"]+'</a></li>';
+	}
+	document.getElementById("listOfPets").innerHTML = str;
+}
+
+function updatePetDetails(arrayPos){
+	console.log(data["pets"][arrayPos]["Pet_Name"]);
+	var str = '';
+	str += '<h3>Pet Details</h3>';
+	str += '<p><strong>Pet Name : </strong>'+data["pets"][arrayPos]["Pet_Name"]+'</p>';
+	str += '<p><strong>Pet Age : </strong>'+data["pets"][arrayPos]["Pet_Age"]+'</p>';
+	str += '<p><strong>Pet Sex : </strong>'+data["pets"][arrayPos]["Pet_Sex"]+'</p>';
+	str += '<p><strong>Pet Type : </strong>'+data["pets"][arrayPos]["Pet_Type"]+'</p>';
+	str += '<p><strong>Pet Alergies : </strong>'+data["pets"][arrayPos]["is_Alergic_Penicillin"]+'</p>';
+	document.getElementById("pet-details-content").innerHTML = str;
+}
+
+function updateOwnerDetails(){
+	var str = '';
+	str += '<h3>'+data["ownerDetails"]["FName"]+' '+data["ownerDetails"]["Surname"]+'</h3>';
+	str += '<label for="text-basic">Address:</label>';
+	str += '<input type="text" name="text-basic" id="text-basic" value="'+data["ownerDetails"]["Add1"]+'">';
+	str += '<input type="text" name="text-basic" id="text-basic" value="'+data["ownerDetails"]["Add2"]+'">';
+	str += '<input type="text" name="text-basic" id="text-basic" value="'+data["ownerDetails"]["City"]+'">';
+	str += '<input type="text" name="text-basic" id="text-basic" value="'+data["ownerDetails"]["Post_Code"]+'">';
+	str += '<input type="text" name="text-basic" id="text-basic" value="'+data["ownerDetails"]["Country"]+'">';
+	str += '<label for="text-basic">Enter New Password:</label>';
+	str += '<input type="text" name="text-basic" id="text-basic" value="">';
+		
+	document.getElementById("ownerInfo").innerHTML = str;
+}
+	
+	</script>
+	</head>
+	<body>
+
+<!-- -->
+	
+<!-- Start of first page -->
+
+
+<div data-role="page" id="accountPage">
+
+	<section data-role="header">
+		<h1>Account</h1>
+	</section><!-- /header -->
+<!-- ??? -->
+	<section role="main" class="ui-content">
+		<ul data-role="listview" data-inset="true">
+			<li data-icon="user"><a href="#account-details"><img src="../_assets/img/gf.png" alt="" class="ui-li-icon ui-corner-none">View or Edit Personal Details</a></li>
+			<li data-icon="calendar"><a href="#view-appointment"><img src="../_assets/img/de.png" alt="" class="ui-li-icon">View or Edit Appointment</a></li>
+			<li data-icon="action"><a href="#book-appointment"><img src="../_assets/img/gb.png" alt="" class="ui-li-icon">Book Appointment</a></li>
+			<li data-icon=""><a href="#login"><img src="../_assets/img/gb.png" alt="" class="ui-li-icon">Logout</a></li>
+
+		</ul>
+		
+	</section><!-- /content -->
+	
+</div><!-- /page -->
+
+<div data-role="page" id="account-details">
+
+	<div data-role="header">
+		<h1>Details</h1>
+	
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		
+		<div id="ownerInfo"></div>
+	
+		<a href="#edit-pet" class="ui-btn ui-btn-e">Edit Pet Details</a>
+		<a href="#edit-payment" class="ui-btn ui-btn-e">Edit Payment Details</a>
+		<a href="#accountPage" class="ui-btn ui-btn-e">Confirm Changes</a>
+		<a href="#accountPage" class="ui-btn ui-btn-e">Cancel/Return to Main Menu</a>
+		
+		
+	
+
+			
+		
+	</div><!-- /content -->
+		
+</div>
+<!-- /page -->
+<div data-role="page" id="edit-pet">
+
+	<div data-role="header">
+		<h1>List of Pets</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		
+		<!-- Start List of Pets-->
+		
+		<ul data-role="listview" data-inset="true" id="listOfPets">
+			<li><a href="#">Apple</a></li>
+		</ul>
+		
+		<a href="#account-details" class="ui-btn ui-btn-e">Cancel/Return to Personal Details</a>
+	</div><!-- /content -->
+</div><!-- /page -->
+
+<!-- /page -->
+<div data-role="page" id="pet-details">
+
+	<div data-role="header">
+		<h1>Pets Details</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content" id="pet-details-content">
+		
+		<!-- Start Pets Details-->
+		<h3>Pet Details</h3>
+		<p>Error: no details received</p>
+		
+		<a href="#account-details" class="ui-btn ui-btn-e">Cancel/Return to Personal Details</a>
+	</div><!-- /content -->
+</div><!-- /page -->
+
+
+<div data-role="page" id="edit-payment">
+
+	<div data-role="header">
+		<h1>Edit Payment Details</h1>
+	</div><!-- /header -->
+	<div role="main" class="ui-content">
+	<label for="text-basic">Card Number:</label>
+		<input type="text" name="text-basic" id="text-basic" value="3566002020360505">
+		<label for="text-basic">Security Number:</label>
+		<input type="text" name="text-basic" id="text-basic" value="278">
+		<label for="text-basic">Expiration Date:</label>
+		<input type="text" name="text-basic" id="text-basic" value="02/21">
+		<a href="#accountPage" class="ui-btn ui-btn-e">Confirm Changes</a>
+		<a href="#account-details" class="ui-btn ui-btn-e">Cancel/Return to Personal Details</a>
+	
+		
+	</div><!-- /content -->
+
+	
+</div><!-- /page -->
+
+<div data-role="page" id="view-appointment">
+
+	<div data-role="header">
+		<h1>View Appointment</h1>
+	</div><!-- /header -->
+		<div role="main" class="ui-content">
+	
+<ul data-role="listview" data-inset="true" id="appointments">
+    <!-- <li data-role="list-divider">Date<span class="ui-li-count">APT ID:3</span></li>
+    <li><a href="index.html">
+    <h2>PetName</h2>
+    <p><strong>Vet</strong></p>
+    <p>Room:</p>
+        <p class="ui-li-aside"><strong>TIME</strong></p>
+    </a></li> -->
+</ul>
+		
+		<a href="#accountPage" class="ui-btn ui-btn-e">Return to Main Menu</a>
+		<a href="#edit-appointment" class="ui-btn ui-btn-e">Edit Appointment Details</a>
+		
+	</div><!-- /content -->
+
+	
+</div><!-- /page -->
+
+<div data-role="page" id="edit-appointment">
+
+	<div data-role="header">
+		<h1>Edit Appointment</h1>
+	</div><!-- /header -->
+	<div role="main" class="ui-content">
+		<label for="text-basic">Pet Name:</label>
+		<input type="text" name="text-basic" id="text-basic" value="Rex">
+		<br>
+		<label for="text-basic">Date:</label>
+		<input type="text" name="text-basic" id="text-basic" value="03/05/2019">
+<div class="form-group row">
+    <label for="select1" class="col-4 col-form-label">Time of Appointment :</label> 
+    <div class="col-8">
+      <select id="select1" name="select1" class="custom-select">
+        <option value="09:00">09:00</option>
+        <option value="09:30">09:30</option>
+        <option value="10:00">10:00</option>
+        <option value="10:30">10:30</option>
+        <option value="11:00">11:00</option>
+        <option value="11:30">11:30</option>
+        <option value="12:00">12:00</option>
+        <option value="12:30">12:30</option>
+        <option value=""></option>
+        <option value="14:00">14:00</option>
+        <option value="14:30">14:30</option>
+        <option value="15:00">15:00</option>
+        <option value="15:30">15:30</option>
+        <option value="16:00">16:00</option>
+        <option value="16:30">16:30</option>
+      </select>
+    </div>
+		
+		
+			
+</div>
+		
+		<a href="#accountPage" class="ui-btn ui-btn-e">Confirm Changes</a>
+		<a href="#accountPage" class="ui-btn ui-btn-e">Cancel/Return to Main Menu</a>
+	
+	</div><!-- /content -->
+
+	
+</div><!-- /page -->
+
+
+<div data-role="page" id="book-appointment">
+
+	<div data-role="header">
+		<h1>Book Appointment</h1>
+	</div><!-- /header -->
+	<div role="main" class="ui-content">
+		<label for="text-basic">Pet Name:</label>
+		<input type="text" name="text-basic" id="text-basic" value="Rex">
+		<br>
+		<label for="text-basic">Enter Date:</label>
+		<input type="text" name="text-basic" id="text-basic" value="e.g. 01/01/2019">
+		
+	<div class="form-group row">
+    <label for="select1" class="col-4 col-form-label">Time of Appointment :</label> 
+    <div class="col-8">
+      <select id="select1" name="select1" class="custom-select">
+        <option value="09:00">09:00</option>
+        <option value="09:30">09:30</option>
+        <option value="10:00">10:00</option>
+        <option value="10:30">10:30</option>
+        <option value="11:00">11:00</option>
+        <option value="11:30">11:30</option>
+        <option value="12:00">12:00</option>
+        <option value="12:30">12:30</option>
+        <option value=""></option>
+        <option value="14:00">14:00</option>
+        <option value="14:30">14:30</option>
+        <option value="15:00">15:00</option>
+        <option value="15:30">15:30</option>
+        <option value="16:00">16:00</option>
+        <option value="16:30">16:30</option>
+      </select>
+    </div>
+		
+		
+
+</div>
+		
+		<br>
+		
+		<a href="#payment" class="ui-btn ui-btn-e">Continue to Payment</a>
+		<a href="#accountPage" class="ui-btn ui-btn-e">Cancel/Return to Main Menu</a>
+
+	
+	</div><!-- /content -->
+
+	
+</div><!-- /page -->
+
+<div data-role="page" id="payment">
+
+		<div data-role="header">
+		<h1>Payment Details</h1>
+	</div><!-- /header -->
+	<div role="main" class="ui-content">
+
+		<label for="text-basic">Card Number:</label>
+		<input type="text" name="text-basic" id="text-basic" value="3566002020360505">
+		<label for="text-basic">Security Number:</label>
+		<input type="text" name="text-basic" id="text-basic" value="278">
+		<label for="text-basic">Expiration Date:</label>
+		<input type="text" name="text-basic" id="text-basic" value="02/21">
+		<a href="#accountPage" class="ui-btn ui-btn-e">Confirm Appointment</a>
+		<a href="#book-appointment" class="ui-btn ui-btn-e">Cancel/Return to Booking Menu</a>
+	<div role="main" class="ui-content">
+		
+	</div><!-- /content -->
+
+	
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+<!-- template page -->
+<div data-role="page" id="??">
+
+	<div data-role="header">
+		<h1>template</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<p>template</p>
+		<p><a href="#foo">template</a></p>
+	</div><!-- /content -->
+
+	<div data-role="footer">
+		<h4>template Footer</h4>
+	</div><!-- /footer -->
+</div><!-- /page -->
+</body>
+</html>
+
+
+
+
+
+
